@@ -1,0 +1,25 @@
+﻿@page "/azurefunction"
+@inject HttpClient Http
+
+<h1>Azure Function</h1>
+
+<p>This component demonstrates fetching data from the Azure Function</p>
+
+@if (messageFromAZFunction == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <p>@messageFromAZFunction</p>
+}
+
+@code {
+    string messageFromAZFunction;
+
+    protected override async Task OnInitializedAsync()
+    {
+        messageFromAZFunction = await Http.GetStringAsync("https://nepal-blazor-wsam-api.azurewebsites.net/api/HttpTrigger1?code=SRrBCyYJBujTffRWXtIjzT14FMb2IFerbLMnQ1wWFOKSXvQac7JPaA==&name='Nepal Techies'");
+    }
+
+}
